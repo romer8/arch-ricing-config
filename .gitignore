@@ -1,0 +1,11 @@
+# Python bytecode (qtile)
+__pycache__/
+*.py[cod]
+
+# Editor / OS noise
+*.swp
+*~
+.DS_Store
+
+# pywal cache (regenerated at runtime)
+.cache/
