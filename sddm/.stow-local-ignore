@@ -1,0 +1,4 @@
+# This directory is NOT a stow package. It holds root-owned config
+# (/etc, /usr/share) installed via install-sddm.sh, not symlinked into $HOME.
+# Ignore everything so an accidental `stow *` / `stow sddm` is a harmless no-op.
+.+
