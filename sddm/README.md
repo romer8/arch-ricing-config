@@ -5,9 +5,10 @@ so they're installed by a script instead of symlinked.
 
 ## SDDM login theme
 
-- `etc/sddm.conf.d/theme.conf` — selects the theme + virtual keyboard
-- `sddm-astronaut-theme/cyberpunk.conf` — the customized "cyberpunk" preset
-  (colors, clock format, blur, background)
+- `theme.conf` — the SDDM drop-in: selects the theme + virtual keyboard
+  (installed to `/etc/sddm.conf.d/theme.conf`)
+- `cyberpunk.conf` — the customized "cyberpunk" preset, colors/clock/blur/background
+  (installed to `…/themes/sddm-astronaut-theme/Themes/cyberpunk.conf`)
 
 Install / update on this or a fresh machine:
 
@@ -26,7 +27,7 @@ QT_QPA_PLATFORM=xcb sddm-greeter-qt6 --test-mode \
 ```
 
 ### Editing the look
-Tune `sddm-astronaut-theme/cyberpunk.conf` here, re-run `install-sddm.sh` to push
+Tune `cyberpunk.conf` here, re-run `install-sddm.sh` to push
 it live, then commit. To use a custom wallpaper, add the image under the theme's
 `Backgrounds/` and set `Background=` in the preset (also copy the image into this
 repo so it's reproducible).

@@ -28,12 +28,12 @@ else
 fi
 
 echo ">> Applying customized cyberpunk preset"
-$SUDO cp "$HERE/sddm-astronaut-theme/cyberpunk.conf" "$THEME_DIR/Themes/cyberpunk.conf"
+$SUDO cp "$HERE/cyberpunk.conf" "$THEME_DIR/Themes/cyberpunk.conf"
 $SUDO sed -i 's|^ConfigFile=.*|ConfigFile=Themes/cyberpunk.conf|' "$THEME_DIR/metadata.desktop"
 
 echo ">> Installing SDDM drop-in config"
 $SUDO mkdir -p /etc/sddm.conf.d
-$SUDO cp "$HERE/etc/sddm.conf.d/theme.conf" /etc/sddm.conf.d/theme.conf
+$SUDO cp "$HERE/theme.conf" /etc/sddm.conf.d/theme.conf
 
 $SUDO fc-cache -f >/dev/null 2>&1 || true
 echo ">> Done. Preview without logging out:"
