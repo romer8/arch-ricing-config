@@ -49,9 +49,9 @@ git add -A && git commit -m "..." && git push   # edits are live via symlinks
 Because files are symlinked, editing `~/.config/qtile/config.py` edits the
 copy in this repo directly — just commit and push.
 
-## Root-owned config (`system/`)
+## SDDM login theme (`sddm/`)
 
-Files under `/etc` and `/usr/share` can't be stowed into `$HOME`, so they live in
-[`system/`](system/) with an installer instead. Currently: the **SDDM login theme**
-(sddm-astronaut, "cyberpunk" preset) — run `system/install-sddm.sh`. See
-[`system/README.md`](system/README.md).
+Root-owned files under `/etc` and `/usr/share` can't be stowed into `$HOME`, so the
+**SDDM login theme** (sddm-astronaut, "cyberpunk" preset) lives in [`sddm/`](sddm/)
+with an installer instead — run `sddm/install-sddm.sh`. See
+[`sddm/README.md`](sddm/README.md).

@@ -1,4 +1,4 @@
-# system/ — root-owned config (not stow-managed)
+# sddm/ — login theme (not stow-managed)
 
 These files live under `/etc` and `/usr/share`, outside stow's `$HOME` target,
 so they're installed by a script instead of symlinked.
@@ -12,7 +12,7 @@ so they're installed by a script instead of symlinked.
 Install / update on this or a fresh machine:
 
 ```sh
-cd ~/arch-ricing-config/system
+cd ~/arch-ricing-config/sddm
 ./install-sddm.sh
 ```
 
