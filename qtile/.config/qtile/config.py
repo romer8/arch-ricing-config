@@ -219,7 +219,8 @@ screens = [
                 ),
 
 
-                widget.CurrentLayoutIcon(
+                widget.CurrentLayout(
+                    mode="icon",
                     custom_icon_paths=["~/.config/qtile/Assets/layout"],
                     background='#353446',
                     scale=0.50,
