@@ -265,9 +265,9 @@ screens = [
                     filename='~/.config/qtile/Assets/3.png',
                 ),
 
-                widget.Systray(
+                widget.StatusNotifier(
                     background='#282738',
-                    fontsize=2,
+                    padding=5,
                 ),
 
                 widget.TextBox(
