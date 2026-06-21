@@ -27,17 +27,21 @@ arch-ricing-config/
 ├── themes/      → ~/Themes/                     stow (assets)
 ├── wallpaper/   → ~/Wallpaper/                  stow (assets)
 ├── sddm/        → /etc + /usr/share            NOT stowed (install-sddm.sh)
-└── bootstrap.sh   stows all packages + refreshes font cache
+└── bootstrap.sh   installs deps + stows all packages + refreshes font cache
 ```
 
 ## Install on a fresh machine
 
 ```sh
-sudo pacman -S --needed stow
+sudo pacman -S --needed git
 git clone git@github.com:romer8/arch-ricing-config.git ~/arch-ricing-config
 cd ~/arch-ricing-config
-./bootstrap.sh          # stows everything + refreshes font cache
+./bootstrap.sh          # installs deps, stows everything, refreshes font cache
 ```
+
+`bootstrap.sh` installs the rice dependencies (official repos + AUR via paru/yay),
+then stows every package. Use `./bootstrap.sh --no-deps` to skip installation and
+only re-stow. The SDDM login theme is installed separately via `sddm/install-sddm.sh`.
 
 ## Editing & updating
 
