@@ -6,25 +6,28 @@ WM: **qtile** (Wayland) · Terminal: **alacritty** · Shell: **zsh** + starship 
 
 ## Layout
 
-Each top-level directory is a *stow package*. Its contents mirror the path
-relative to `$HOME`, so stowing a package symlinks its files into place.
+Most top-level directories are *stow packages*: their contents mirror the path
+relative to `$HOME`, so stowing a package symlinks its files into place. `sddm/`
+is the exception — root-owned config installed by a script, not stowed.
 
 ```
 arch-ricing-config/
-├── alacritty/   .config/alacritty/
-├── cava/        .config/cava/
-├── dunst/       .config/dunst/
-├── fontconfig/  .config/fontconfig/
-├── nvim/        .config/nvim/
-├── picom/       .config/picom/
-├── qtile/       .config/qtile/
-├── rofi/        .config/rofi/
-├── spicetify/   .config/spicetify/
-├── starship/    .config/starship.toml
-├── zsh/         .zshrc
-├── fonts/       .local/share/fonts/   (assets)
-├── themes/      Themes/               (assets)
-└── wallpaper/   Wallpaper/            (assets)
+├── alacritty/   → ~/.config/alacritty/         stow
+├── cava/        → ~/.config/cava/              stow
+├── dunst/       → ~/.config/dunst/             stow
+├── fontconfig/  → ~/.config/fontconfig/        stow
+├── nvim/        → ~/.config/nvim/              stow
+├── picom/       → ~/.config/picom/             stow
+├── qtile/       → ~/.config/qtile/             stow
+├── rofi/        → ~/.config/rofi/              stow
+├── spicetify/   → ~/.config/spicetify/         stow
+├── starship/    → ~/.config/starship.toml      stow
+├── zsh/         → ~/.zshrc                      stow
+├── fonts/       → ~/.local/share/fonts/        stow (assets)
+├── themes/      → ~/Themes/                     stow (assets)
+├── wallpaper/   → ~/Wallpaper/                  stow (assets)
+├── sddm/        → /etc + /usr/share            NOT stowed (install-sddm.sh)
+└── bootstrap.sh   stows all packages + refreshes font cache
 ```
 
 ## Install on a fresh machine
