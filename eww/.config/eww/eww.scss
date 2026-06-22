@@ -1,0 +1,42 @@
+* { all: unset; }
+
+.volbox {
+  background-color: #353446;
+  border-radius: 14px;
+  padding: 16px 8px;
+  margin: 8px;
+}
+
+.volicon {
+  color: #CAA9E0;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 20px;
+}
+
+.vollabel {
+  color: #CAA9E0;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
+}
+
+scale.volscale trough {
+  background-color: #282738;
+  border-radius: 12px;
+  min-width: 8px;
+  min-height: 140px;
+  margin: 4px 6px;
+}
+
+scale.volscale trough highlight {
+  background-color: #CAA9E0;
+  border-radius: 12px;
+}
+
+/* Hide the knob for a clean "filled line" look (trough is still draggable) */
+scale.volscale slider {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  min-width: 0;
+  min-height: 0;
+}

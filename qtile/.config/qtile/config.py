@@ -61,6 +61,8 @@ keys = [
     Key([mod], "r", lazy.spawn("sh -c ~/.config/rofi/scripts/launcher"), desc="Spawn a command using a prompt widget"),
     Key([mod], "p", lazy.spawn("sh -c ~/.config/rofi/scripts/power"), desc='powermenu'),
     Key([mod], "t", lazy.spawn("sh -c ~/.config/rofi/scripts/theme_switcher"), desc='theme_switcher'),
+    Key([mod], "w", lazy.spawn("rofi-wifi-menu"), desc='wifi menu'),
+    Key([mod], "a", lazy.spawn("/home/larutov/.config/eww/toggle.sh"), desc='volume slider'),
 
 
 # C U S T O M
@@ -74,7 +76,8 @@ keys = [
     Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s 10%+"), desc='brightness UP'),
     Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 10%-"), desc='brightness Down'),
     Key([mod],"e", lazy.spawn("thunar"), desc='file manager'),
-	Key([mod], "h", lazy.spawn("roficlip"), desc='clipboard'),
+    Key([mod], "v", lazy.spawn("roficlip"), desc='clipboard'),
+    Key([mod, "shift"], "v", lazy.spawn("/home/larutov/.config/qtile/scripts/vpn-toggle.sh"), desc='toggle vpn'),
     Key([mod], "s", lazy.spawn("flameshot gui"), desc='Screenshot'),
 ]
 
@@ -331,12 +334,19 @@ screens = [
                     background='#353446',
                 ),
 
-                widget.TextBox(
-                    text=" ",
-                    font="Font Awesome 6 Free Solid",
-                    fontsize=13,
+                widget.Volume(
+                    emoji=True,
+                    emoji_list=["󰖁", "󰕿", "󰖀", "󰕾"],
+                    font="JetBrainsMono Nerd Font",
+                    fontsize=16,
                     background='#353446',
                     foreground='#CAA9E0',
+                    mute_command="pamixer --toggle-mute",
+                    volume_up_command="pamixer -i 5",
+                    volume_down_command="pamixer -d 5",
+                    get_volume_command="pamixer --get-volume-human",
+                    update_interval=0.2,
+                    mouse_callbacks={"Button3": lazy.spawn("/home/larutov/.config/eww/toggle.sh")},
                 ),
 
 				widget.Volume(
@@ -351,6 +361,7 @@ screens = [
 					update_interval=0.2,
 					unmute_format="{volume}%",
 					mute_format="M",
+					mouse_callbacks={"Button3": lazy.spawn("/home/larutov/.config/eww/toggle.sh")},
 				),
 
                 widget.Image(

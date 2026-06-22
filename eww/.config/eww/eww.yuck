@@ -1,0 +1,28 @@
+;; Minimal vertical volume slider
+;; Colors match the qtile bar (#353446 / #CAA9E0 / #282738)
+
+(defpoll volume :interval "1s" :initial "0"     "pamixer --get-volume")
+(defpoll muted  :interval "1s" :initial "false" "pamixer --get-mute")
+
+(defwidget volslider []
+  (box :class "volbox" :orientation "v" :space-evenly false :spacing 10
+    (label :class "volicon"
+           :text {muted == "true" ? "󰖁" :
+                  volume <  1 ? "󰖁" :
+                  volume < 34 ? "󰕿" :
+                  volume < 67 ? "󰖀" : "󰕾"})
+    (scale :class "volscale"
+           :orientation "v"
+           :flipped true
+           :value volume
+           :min 0
+           :max 100
+           :onchange "/home/larutov/.config/eww/setvol.sh {}")
+    (label :class "vollabel" :text "${volume}%")))
+
+(defwindow volume
+  :monitor 0
+  :geometry (geometry :x "-205px" :y "48px" :anchor "top right" :width "60px" :height "240px")
+  :stacking "fg"
+  :focusable false
+  (volslider))
