@@ -62,6 +62,7 @@ keys = [
     Key([mod], "p", lazy.spawn("sh -c ~/.config/rofi/scripts/power"), desc='powermenu'),
     Key([mod], "t", lazy.spawn("sh -c ~/.config/rofi/scripts/theme_switcher"), desc='theme_switcher'),
     Key([mod], "w", lazy.spawn("rofi-wifi-menu"), desc='wifi menu'),
+    Key([mod], "b", lazy.spawn("rofi-bluetooth"), desc='bluetooth menu'),
     Key([mod], "a", lazy.spawn("/home/larutov/.config/eww/toggle.sh"), desc='volume slider'),
 
 
