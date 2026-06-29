@@ -26,3 +26,136 @@
   :stacking "fg"
   :focusable false
   (volslider))
+
+;; ───────────────────────── Now Playing (YouTube Music via Brave) ─────────────
+(defpoll music :interval "1s"
+  :initial '{"status":"Stopped","title":"Nothing playing","artist":"","art":""}'
+  "/home/larutov/.config/eww/music.sh")
+
+(defwidget music []
+  (box :class "music" :orientation "h" :space-evenly false :spacing 14
+    (box :class "music-art" :valign "center"
+         :style {music.art != "" ? "background-image: url('${music.art}');" : ""})
+    (box :orientation "v" :space-evenly false :spacing 2 :hexpand true :valign "center"
+      (label :class "music-title"  :halign "start" :limit-width 26 :text {music.title})
+      (label :class "music-artist" :halign "start" :limit-width 26 :text {music.artist})
+      (box :class "music-controls" :orientation "h" :space-evenly false :spacing 18
+           :halign "start" :valign "center"
+        (button :class "music-btn" :onclick "/home/larutov/.config/eww/music.sh prev"   "󰒮")
+        (button :class "music-btn music-play"
+                :onclick "/home/larutov/.config/eww/music.sh toggle"
+                {music.status == "Playing" ? "󰏤" : "󰐊"})
+        (button :class "music-btn" :onclick "/home/larutov/.config/eww/music.sh next"   "󰒭")))))
+
+(defwindow music
+  :monitor 0
+  :geometry (geometry :x "20px" :y "60px" :anchor "top left" :width "330px" :height "112px")
+  :stacking "fg"
+  :focusable false
+  (music))
+
+;; ═══════════════════════════════ Dashboard ═══════════════════════════════════
+(defpoll clock_time :interval "10s" :initial "--:--" "date +'%H:%M'")
+(defpoll clock_date :interval "60s" :initial ""      "date +'%A, %d %B'")
+(defpoll greeting   :interval "60s" :initial "Hello"
+  "date +%H | awk '{if($1<12)print \"Good morning\"; else if($1<18)print \"Good afternoon\"; else print \"Good evening\"}'")
+(defpoll cputemp    :interval "3s"  :initial "0"
+  "sensors | awk '/Package id 0/{gsub(/[+°C]/,\"\",$4); print int($4)}'")
+(defpoll battery    :interval "10s"
+  :initial '{"pct":0,"status":"","icon":"󰁹"}' "/home/larutov/.config/eww/battery.sh")
+(defpoll weather    :interval "900s"
+  :initial '{"icon":"","temp":"--","desc":""}' "/home/larutov/.config/eww/weather.sh")
+
+(defpoll uptime :interval "60s" :initial ""
+  "uptime -p | sed 's/up //; s/ hours/h/; s/ hour/h/; s/ minutes/m/; s/ minute/m/; s/ days/d/; s/ day/d/; s/,//g'")
+(defpoll focus :interval "1s" :initial '{"time":"25:00","running":0}'
+  "/home/larutov/.config/eww/timer.sh")
+
+(defwidget metric [value icon name]
+  (box :orientation "v" :space-evenly false :spacing 4 :halign "center"
+    (circular-progress :class "ring" :value value :thickness 7 :start-at 75 :clockwise true
+      (box :class "ring-inner" :halign "center" :valign "center"
+        (label :class "ring-icon" :text icon)))
+    (label :class "ring-name" :text "${name} ${round(value,0)}%")))
+
+;; ----- Dashboard sub-cards -----
+(defwidget profile []
+  (box :class "card profile" :orientation "v" :space-evenly false :spacing 6
+       :valign "center" :halign "center"
+    (label :class "profile-avatar" :text "󰀄")
+    (label :class "profile-name"   :text "larutov")
+    (label :class "profile-host"   :text "@arch")))
+
+(defwidget clockcard []
+  (box :class "card clock" :orientation "v" :space-evenly false :spacing 2
+       :valign "center" :hexpand true
+    (label :class "clock-greet" :halign "start" :text greeting)
+    (label :class "clock-time"  :halign "start" :text clock_time)
+    (label :class "clock-date"  :halign "start" :text clock_date)))
+
+(defwidget weathercard []
+  (box :class "card weather" :orientation "v" :space-evenly false :spacing 2
+       :valign "center" :halign "center"
+    (label :class "weather-icon" :text {weather.icon})
+    (label :class "weather-temp" :text {weather.temp})
+    (label :class "weather-desc" :text {weather.desc})))
+
+(defwidget controls []
+  (box :class "card controls" :orientation "v" :space-evenly true :spacing 8 :valign "center"
+    (box :orientation "h" :space-evenly true :spacing 8
+      (button :class "act-btn" :tooltip "Wi-Fi"     :onclick "rofi-wifi-menu &" "󰖩")
+      (button :class "act-btn" :tooltip "Bluetooth" :onclick "rofi-bluetooth &" "󰂯"))
+    (box :orientation "h" :space-evenly true :spacing 8
+      (button :class "act-btn" :tooltip "VPN"
+              :onclick "/home/larutov/.config/qtile/scripts/vpn-toggle.sh &" "󰖂")
+      (button :class "act-btn" :tooltip "Launcher"
+              :onclick "/home/larutov/.config/rofi/scripts/launcher &" "󰍉"))
+    (box :orientation "h" :space-evenly true :spacing 8
+      (button :class "act-btn" :tooltip "Email (neomutt)"
+              :onclick "alacritty -e neomutt &" "󰇮")
+      (button :class "act-btn act-power" :tooltip "Power"
+              :onclick "/home/larutov/.config/rofi/scripts/power &" "󰐥"))))
+
+(defwidget systemcard []
+  (box :class "card system" :orientation "v" :space-evenly false :spacing 10 :hexpand true
+    (box :orientation "h" :space-evenly true
+      (metric :value {EWW_CPU.avg}             :icon "󰍛" :name "CPU")
+      (metric :value {EWW_RAM.used_mem_perc}   :icon "󰘚" :name "RAM")
+      (metric :value {EWW_DISK["/"].used_perc} :icon "󰋊" :name "DISK"))
+    (box :class "dash-substats" :orientation "h" :space-evenly true
+      (label :class "substat" :text "󰔏 ${cputemp}°C")
+      (label :class "substat" :text "${battery.icon} ${battery.pct}%")
+      (label :class "substat" :text "󰅐 ${uptime}"))))
+
+(defwidget focustimer []
+  (box :class "card focus" :orientation "v" :space-evenly false :spacing 8
+       :valign "center" :halign "center"
+    (label :class "focus-title" :text "FOCUS")
+    (label :class "focus-time"  :text {focus.time})
+    (box :class "focus-controls" :orientation "h" :space-evenly true :spacing 14
+      (button :class "focus-btn"
+              :onclick "/home/larutov/.config/eww/timer.sh toggle"
+              {focus.running == 1 ? "󰏤" : "󰐊"})
+      (button :class "focus-btn"
+              :onclick "/home/larutov/.config/eww/timer.sh reset" "󰜉"))))
+
+;; ----- Centered dashboard -----
+(defwidget dashboard []
+  (box :class "dash" :orientation "v" :space-evenly false :spacing 16
+    (box :orientation "h" :space-evenly false :spacing 16
+      (profile)
+      (clockcard)
+      (weathercard)
+      (controls))
+    (box :orientation "h" :space-evenly false :spacing 16
+      (box :orientation "v" :space-evenly false :spacing 16 :hexpand true
+        (systemcard)
+        (music))
+      (focustimer))))
+
+(defwindow dashboard
+  :monitor 0
+  :geometry (geometry :anchor "center" :width "900px" :height "470px")
+  :stacking "fg"
+  :focusable false
+  (dashboard))

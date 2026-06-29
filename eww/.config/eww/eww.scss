@@ -40,3 +40,129 @@ scale.volscale slider {
   min-width: 0;
   min-height: 0;
 }
+
+/* ----- Now Playing ----- */
+.music {
+  background-color: #353446;
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin: 8px;
+}
+
+.music-art {
+  min-width: 76px;
+  min-height: 76px;
+  border-radius: 10px;
+  background-color: #282738;
+  background-size: cover;
+  background-position: center;
+}
+
+.music-title {
+  color: #CAA9E0;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.music-artist {
+  color: #b9a3c9;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 11px;
+}
+
+.music-controls {
+  margin-top: 6px;
+}
+
+.music-btn {
+  color: #CAA9E0;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 18px;
+  padding: 2px 4px;
+}
+
+.music-btn:hover { color: #ffffff; }
+
+.music-play {
+  font-size: 22px;
+}
+
+/* ===== Dashboard (centered) ===== */
+$bg:     #2b2a3a;
+$card:   #353446;
+$inner:  #282738;
+$accent: #CAA9E0;
+$muted:  #b9a3c9;
+$font:   "JetBrainsMono Nerd Font";
+
+.dash {
+  background-color: $bg;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+/* Generic card */
+.card {
+  background-color: $card;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+/* Profile */
+.profile        { min-width: 130px; }
+.profile-avatar { color: $accent; font-family: $font; font-size: 46px; }
+.profile-name   { color: $accent; font-family: $font; font-size: 15px; font-weight: bold; }
+.profile-host   { color: $muted;  font-family: $font; font-size: 11px; }
+
+/* Clock */
+.clock-greet { color: $muted;  font-family: $font; font-size: 13px; }
+.clock-time  { color: $accent; font-family: $font; font-size: 46px; font-weight: bold; }
+.clock-date  { color: $muted;  font-family: $font; font-size: 13px; }
+
+/* Weather */
+.weather      { min-width: 150px; }
+.weather-icon { color: $accent; font-family: $font; font-size: 34px; }
+.weather-temp { color: $accent; font-family: $font; font-size: 24px; font-weight: bold; }
+.weather-desc { color: $muted;  font-family: $font; font-size: 11px; }
+
+/* Rings (circular-progress sizes to its child, so .ring-inner sets diameter) */
+.ring {
+  color: $accent;             /* progress arc */
+  background-color: #232233;  /* unfilled track */
+  margin: 2px;
+}
+.ring-inner { min-width: 52px; min-height: 52px; }
+.ring-icon  { color: $accent; font-family: $font; font-size: 18px; }
+.ring-name  { color: $muted;  font-family: $font; font-size: 11px; }
+
+.dash-substats { margin-top: 6px; }
+.substat { color: $accent; font-family: $font; font-size: 13px; }
+
+/* Control buttons */
+.controls { min-width: 120px; }
+.act-btn {
+  color: $accent;
+  background-color: $inner;
+  font-family: $font;
+  font-size: 18px;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.act-btn:hover { background-color: $accent; color: $inner; }
+.act-power { color: #f28fad; }
+.act-power:hover { background-color: #f28fad; color: $inner; }
+
+/* Focus timer */
+.focus       { min-width: 170px; }
+.focus-title { color: $muted;  font-family: $font; font-size: 12px; }
+.focus-time  { color: $accent; font-family: $font; font-size: 36px; font-weight: bold; }
+.focus-btn {
+  color: $accent;
+  background-color: $inner;
+  font-family: $font;
+  font-size: 18px;
+  border-radius: 10px;
+  padding: 8px 14px;
+}
+.focus-btn:hover { background-color: $accent; color: $inner; }
