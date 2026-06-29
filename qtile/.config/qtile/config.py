@@ -65,6 +65,8 @@ keys = [
     Key([mod], "b", lazy.spawn("rofi-bluetooth"), desc='bluetooth menu'),
     Key([mod], "a", lazy.spawn("/home/larutov/.config/eww/toggle.sh"), desc='volume slider'),
     Key([mod], "d", lazy.spawn("/home/larutov/.config/eww/dashboard.sh"), desc='toggle dashboard'),
+    Key([mod], "grave", lazy.spawn("dunstctl history-pop"), desc='show last notification'),
+    Key([mod, "shift"], "grave", lazy.spawn("dunstctl close-all"), desc='clear notifications'),
 
 
 # C U S T O M
