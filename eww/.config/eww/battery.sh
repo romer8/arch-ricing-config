@@ -31,4 +31,11 @@ else
   else icon="󰂎"; fi
 fi
 
+# "bar" mode: just the combined percentage (the qtile bar already has its own
+# static battery icon TextBox next to it).
+if [ "$1" = "bar" ]; then
+  printf '%d%%\n' "$pct"
+  exit
+fi
+
 printf '{"pct":%d,"status":"%s","icon":"%s"}\n' "$pct" "$status" "$icon"

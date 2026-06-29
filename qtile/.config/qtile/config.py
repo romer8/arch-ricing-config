@@ -321,12 +321,16 @@ screens = [
                     foreground='#CAA9E0',
                 ),
 
-                widget.Battery(
+                # Combined dual-battery reading (BAT0+BAT1) via battery.sh,
+                # so the bar agrees with the dashboard and the low-battery notifier.
+                widget.GenPollCommand(
+                    cmd="/home/larutov/.config/eww/battery.sh bar",
+                    shell=True,
+                    update_interval=15,
                     font="JetBrainsMono Nerd Font Bold",
                     fontsize=13,
                     background='#353446',
                     foreground='#CAA9E0',
-                    format='{percent:2.0%}',
                 ),
 
                 widget.Image(
