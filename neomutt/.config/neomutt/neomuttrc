@@ -1,0 +1,70 @@
+# ~/.config/neomutt/neomuttrc  -- Gmail via IMAP/SMTP
+# Password is read from a gpg-encrypted file OUTSIDE this repo, so no
+# plaintext secret ever lives here or in version control.
+
+# --- identity ---
+set realname  = "larutov"
+set from      = "gio.rombus@gmail.com"
+set use_from  = yes
+set envelope_from = yes
+
+# --- credentials (gpg-decrypted at launch; gpg-agent caches the passphrase) ---
+set my_pass = "`gpg --decrypt ~/.local/share/neomutt/gmail.gpg 2>/dev/null`"
+
+# --- IMAP (receiving) ---
+set imap_user = "gio.rombus@gmail.com"
+set imap_pass = $my_pass
+set folder    = "imaps://imap.gmail.com:993"
+set spoolfile = "+INBOX"
+set postponed = "+[Gmail]/Drafts"
+set record    = "+[Gmail]/Sent Mail"
+set trash     = "+[Gmail]/Trash"
+# Only poll the inbox at startup (one connection). Other folders are still
+# reachable via <change-folder> (press "c"), they just aren't auto-opened.
+mailboxes =INBOX
+
+# --- SMTP (sending) -- neomutt's built-in sender, no msmtp needed ---
+set smtp_url  = "smtps://gio.rombus%40gmail.com@smtp.gmail.com:465/"
+set smtp_pass = $my_pass
+
+# --- connection / security ---
+set ssl_force_tls   = yes
+set ssl_starttls    = yes
+set imap_keepalive  = 300
+set mail_check      = 60
+set timeout         = 15
+unset imap_passive
+set imap_check_subscribed
+
+# --- behaviour ---
+set editor      = "nvim"
+set sort        = reverse-date
+set mark_old    = no
+set fast_reply  = yes
+set include     = yes
+set sleep_time  = 0
+auto_view text/html
+alternative_order text/plain text/enriched text/html
+
+# --- a few sensible keybinds ---
+bind index,pager R group-reply
+bind index g noop
+bind index gg first-entry
+bind index G  last-entry
+macro index,pager d "<save-message>=[Gmail]/Trash<enter>" "Move to Trash"
+macro index,pager A "<save-message>=[Gmail]/All Mail<enter>" "Archive"
+macro index o "<shell-escape>true<enter><check-stats>" "refresh"
+
+# --- colours (rice-ish: lavender accents) ---
+color normal     default       default
+color indicator  color235      color183
+color status     color183      color236
+color tree       color183      default
+color hdrdefault color146      default
+color quoted     color108      default
+color signature  color108      default
+color attachment color216      default
+color tilde      color236      default
+color markers    color210      default
+color index      color183      default ~N
+color index      color210      default ~F
