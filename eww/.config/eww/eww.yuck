@@ -112,7 +112,7 @@
               :onclick "/home/larutov/.config/rofi/scripts/launcher &" "󰍉"))
     (box :orientation "h" :space-evenly true :spacing 8
       (button :class "act-btn" :tooltip "Email (neomutt)"
-              :onclick "alacritty -e neomutt &" "󰇮")
+              :onclick "/home/larutov/.config/qtile/scripts/email.sh &" "󰇮")
       (button :class "act-btn act-power" :tooltip "Power"
               :onclick "/home/larutov/.config/rofi/scripts/power &" "󰐥"))))
 
